@@ -1,4 +1,9 @@
-# Lung Cancer Detection & Localization
+![banner](images/banner.png)
+<h3 align="center"><b>Lung Cancer Detection & Localization</b></h3>
+
+![python](https://img.shields.io/badge/python-3.8~3.12-aff.svg)
+![os](https://img.shields.io/badge/os-linux%2C%20win%2C%20mac-pink.svg)
+![hardware](https://img.shields.io/badge/hardware-cpu%2C%20gpu%2C%20xpu%2C%20npu-yellow.svg)[![License](https://img.shields.io/badge/license-Apache_2.0-green)](../LICENSE)
 
 A two-stage deep learning pipeline for detecting, localizing, and classifying
 lung tumors (nodules) in medical images — built to solve a specific
@@ -70,11 +75,26 @@ dataset/
 Each `<object>` in an annotation is labeled `cancer` (mapped to detector
 class `1`) or anything else (mapped to class `2`).
 
-## inference example
+## Inference Example
 
-Case courtesy of Ashesh Ishwarlal Ranchod, <a href="https://radiopaedia.org/?lang=us">Radiopaedia.org</a>. From the case <a href="https://radiopaedia.org/cases/222172?lang=us">rID: 222172</a>
-![input](samples/tumor.jpeg)
-![output](samples/output.png)
+Case courtesy of Ashesh Ishwarlal Ranchod,
+<a href="https://radiopaedia.org/?lang=us">Radiopaedia.org</a>.
+From the case <a href="https://radiopaedia.org/cases/222172?lang=us">rID: 222172</a>.
+
+<table>
+<tr>
+<td align="center"><b>Input CT Slice</b></td>
+<td align="center"><b>Pipeline Output</b></td>
+</tr>
+<tr>
+<td>
+<img src="images/tumor.jpeg" width="450">
+</td>
+<td>
+<img src="images/output.png" width="450">
+</td>
+</tr>
+</table>
 
 ## Notes
 - The detector's class labels (`cancer` vs. other) and the classifier's
@@ -84,7 +104,3 @@ Case courtesy of Ashesh Ishwarlal Ranchod, <a href="https://radiopaedia.org/?lan
 - Thresholds (`INITIAL_DET_THRESH`, `INITIAL_CLS_THRESH`, `STEP`,
   `MIN_THRESH`, `NMS_IOU_THRESHOLD`, `IOU_THRESHOLD`) are all defined in one
   place in the notebook's config cell for easy tuning.
-
-## License
-
-Add a license of your choice (e.g. MIT) before publishing.
