@@ -52,35 +52,6 @@ Image ──► Faster R-CNN (ResNet-152 + FPN) ──► candidate boxes
                                    final boxes + benign/malignant labels
 ```
 
-## Repository structure
-
-```
-.
-├── lung_cancer_detection_pipeline.ipynb   # full pipeline: data, models, training, inference, evaluation
-├── detector.ckpt                           # trained Faster R-CNN weights (not included — see below)
-└── classifier.ckpt                         # trained ResNet-50 weights (not included — see below)
-```
-
-> Model checkpoints are not tracked in this repo due to size. Train your own
-> with the notebook, or point the config paths at your own `.ckpt` files.
-
-## Requirements
-
-```
-torch
-torchvision
-pytorch-lightning
-xmltodict
-Pillow
-matplotlib
-tqdm
-```
-
-Install with:
-
-```bash
-pip install torch torchvision pytorch-lightning xmltodict pillow matplotlib tqdm
-```
 
 ## Data format
 
@@ -99,35 +70,13 @@ dataset/
 Each `<object>` in an annotation is labeled `cancer` (mapped to detector
 class `1`) or anything else (mapped to class `2`).
 
-## Usage
+## inference example
 
-Open `lung_cancer_detection_pipeline.ipynb` and run top to bottom. It covers:
-
-1. Config — set your data/checkpoint paths
-2. Dataset — `VOCDataset` for loading images + annotations
-3. Model definitions — `Detector` and `TumorClassifier`
-4. Training — Lightning `Trainer` setup for both stages
-5. Two-stage inference — `detect_and_classify()` + `draw_detections()`
-6. Full validation loop — computes Precision / Recall / F1 / Mean IoU
-
-### Quick inference example
-
-```python
-detector = Detector.load_from_checkpoint("detector.ckpt").to(DEVICE).eval()
-classifier = TumorClassifier.load_from_checkpoint("classifier.ckpt").to(DEVICE).eval()
-
-image = Image.open("sample.png").convert("RGB")
-boxes, labels, probs = detect_and_classify(image, detector, classifier)
-
-for box, label, p in zip(boxes, labels, probs):
-    print(f"{label}: {p:.2f} at {box}")
-```
-**Results:**
 Case courtesy of Ashesh Ishwarlal Ranchod, <a href="https://radiopaedia.org/?lang=us">Radiopaedia.org</a>. From the case <a href="https://radiopaedia.org/cases/222172?lang=us">rID: 222172</a>
 ![input](samples/tumor.jpeg)
 ![output](samples/output.png)
-## Notes
 
+## Notes
 - The detector's class labels (`cancer` vs. other) and the classifier's
   labels (`benign` vs. `malignant`) are two separate label spaces — the
   detector decides *where* something is, the classifier decides *what* it
